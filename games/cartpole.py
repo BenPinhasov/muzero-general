@@ -1,5 +1,6 @@
 import datetime
 import pathlib
+import time
 
 import gymnasium as gym
 import numpy
@@ -20,8 +21,7 @@ class MuZeroConfig:
         self.max_num_gpus = 1  # Fix the maximum number of GPUs to use. It's usually faster to use a single GPU (set it to 1) if it has enough memory. None will use every GPUs available
 
         ### Game
-        self.observation_shape = (1, 1,
-                                  4)  # Dimensions of the game observation, must be 3D (channel, height, width). For a 1D array, please reshape it to (1, 1, length of array)
+        self.observation_shape = (1, 1, 4)  # Dimensions of the game observation, must be 3D (channel, height, width). For a 1D array, please reshape it to (1, 1, length of array)
         self.action_space = list(range(2))  # Fixed list of all possible actions. You should only edit the length
         self.players = list(range(1))  # List of players. You should only edit the length
         self.stacked_observations = 0  # Number of previous observations and previous actions to add to the current observation
@@ -128,7 +128,7 @@ class Game(AbstractGame):
     """
 
     def __init__(self, seed=None):
-        self.env = gym.make("CartPole-v1")
+        self.env = gym.make("CartPole-v1", render_mode="human")
         if seed is not None:
             self.env.reset(seed=seed)
 
@@ -179,7 +179,8 @@ class Game(AbstractGame):
         Display the game observation.
         """
         self.env.render()
-        input("Press enter to take a step ")
+        # input("Press enter to take a step ")
+        time.sleep(1/30)
 
     def action_to_string(self, action_number):
         """

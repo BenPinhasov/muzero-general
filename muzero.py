@@ -677,7 +677,8 @@ if __name__ == "__main__":
             elif choice == 2:
                 muzero.diagnose_model(30)
             elif choice == 3:
-                muzero.test(render=True, opponent="self", muzero_player=None)
+                result = muzero.test(render=True, opponent="self", muzero_player=None)
+                print(result)
             elif choice == 4:
                 muzero.test(render=True, opponent="human", muzero_player=0)
             elif choice == 5:
@@ -698,8 +699,8 @@ if __name__ == "__main__":
                 del muzero
                 budget = 20
                 parallel_experiments = 2
-                lr_init = nevergrad.p.Log(lower=0.0001, upper=0.1)
-                discount = nevergrad.p.Log(lower=0.95, upper=0.9999)
+                lr_init = nevergrad.p.Log(lower=0.01, upper=0.1)
+                discount = nevergrad.p.Log(lower=0.97, upper=0.9999)
                 parametrization = nevergrad.p.Dict(lr_init=lr_init, discount=discount)
                 best_hyperparameters = hyperparameter_search(
                     game_name, parametrization, budget, parallel_experiments, 20
